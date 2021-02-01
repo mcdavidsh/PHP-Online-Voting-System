@@ -1,0 +1,30 @@
+body {
+    font-family: arial;
+    color: #232323;
+}
+
+.frmDronpDown {
+    border: 1px solid #dedede;
+    background-color: #FFF;
+    padding: 40px 60px 20px 60px;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+.demoInputBox {
+    padding: 10px;
+    border: #dedede 1px solid;
+    border-radius: 3px;
+    width: 250px;
+    margin-top: 5px;
+    height: 40px;
+}
+
+.row {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.loader {
+    background: url(../../images/loader.gif) no-repeat center right 15px;
+}

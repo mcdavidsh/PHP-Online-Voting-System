@@ -1,0 +1,129 @@
+<aside class="app-sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <a class="sidebar-brand" href="<?php echo $dash; ?>"><?php echo $sitelogo_app;?></a>
+        <button type="button" class="sidebar-toggle">
+            <i class="fa fa-times"></i>
+        </button>
+    </div>
+
+<!--    Loader Begins-->
+    <?php
+    $status =1;
+    $query=  "select * from voters where profile=$status and (email='".$_SESSION['vtlogin']."' or phone='".$_SESSION['vtlogin']."')";
+    $result =mysqli_query($con, $query);
+    $row = mysqli_fetch_array($result);
+    ?>
+    <?php
+    if($row['profile']== NULL or $row['profile']=="" )
+    {
+echo '
+ <div class="card-body __loading">
+            <div class="loader-container text-center">
+                <div class="icon">
+                    <div class="sk-wave">
+                        <div class="sk-rect sk-rect1"></div>
+                        <div class="sk-rect sk-rect2"></div>
+                        <div class="sk-rect sk-rect3"></div>
+                        <div class="sk-rect sk-rect4"></div>
+                        <div class="sk-rect sk-rect5"></div>
+                    </div>
+                </div>
+                <div class="title">Processing</div>
+            </div>
+            <div class="text-indent">'
+         ?>
+<!--Loader Body-->
+
+    <div class="sidebar-menu">
+        <ul class="sidebar-nav">
+            <li class="<?php echo ($_SERVER['PHP_SELF'] == $dash ? "active" : "");?>">
+                <a href="<?php echo $dash;?>">
+                    <div class="icon">
+                        <i class="fa fa-tasks" aria-hidden="true"></i>
+                    </div>
+                    <div class="title">Dashboard</div>
+                </a>
+            </li>
+            <li class="@@menu.messaging">
+                <a href="<?php echo $vote;?>">
+                    <div class="icon">
+                        <i class="fa fa-inbox" aria-hidden="true"></i>
+                    </div>
+                    <div class="title">Vote</div>
+                </a>
+            </li>
+            <li class="@@menu.messaging">
+                <a href="<?php echo $profile;?>">
+                    <div class="icon">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                    </div>
+                    <div class="title">Account</div>
+                </a>
+            </li>
+            <li class="@@menu.messaging">
+                <a href="<?php echo $exit;?>">
+                    <div class="icon">
+                        <i class="fa fa-power-off" aria-hidden="true"></i>
+                    </div>
+                    <div class="title">Exit</div>
+                </a>
+            </li>
+        </ul>
+    </div>
+<!--   Loader Ends -->
+        <?php echo  ' </div>
+ </div>';
+    }
+
+    else {
+    ?>
+        <div class="sidebar-menu">
+            <ul class="sidebar-nav">
+                <li class="<?php if (basename($_SERVER['PHP_SELF'])==$dash) echo 'active';?>">
+                    <a href="<?php echo $dash;?>">
+                        <div class="icon">
+                            <i class="fa fa-tasks" aria-hidden="true"></i>
+                        </div>
+                        <div class="title">Dashboard</div>
+                    </a>
+                </li>
+                <li class="<?php if (basename($_SERVER['PHP_SELF'])==$vote || basename($_SERVER['PHP_SELF'])==$votebo || basename($_SERVER['PHP_SELF'])==$votedet ) echo 'active';?>">
+                    <a href="<?php echo $vote;?>">
+                        <div class="icon">
+                            <i class="fa fa-inbox" aria-hidden="true"></i>
+                        </div>
+                        <div class="title">Vote</div>
+                    </a>
+                </li>
+                <li class="<?php if (basename($_SERVER['PHP_SELF'])==$profile) echo 'active';?>">
+                    <a href="<?php echo $profile;?>">
+                        <div class="icon">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                        </div>
+                        <div class="title">Account</div>
+                    </a>
+
+                </li>
+                <li class="<?php if (basename($_SERVER['PHP_SELF'])==$exit) echo 'active';?>">
+                    <a href="<?php echo $exit;?>">
+                        <div class="icon">
+                            <i class="fa fa-power-off" aria-hidden="true"></i>
+                        </div>
+                        <div class="title">Exit</div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    <?php }?>
+
+    <footer class="app-footer text-center">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="footer-copyright"> &copy; <?php echo $sitename .' '.date('Y') ;?> - <a href="https://softhood.net" target="_parent" rel="author">Softhood</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</aside>
+

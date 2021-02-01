@@ -1,0 +1,238 @@
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap");
+:root {
+  --black: hsl(3, 3%, 4%);
+  --white: hsl(0, 3%, 98%);
+  --gray: hsl(3, 3%, 88%);
+  --blue: #74c0fc;
+  --yellow: #ffe066;
+  --red: #ffa8a8;
+  --green: #51cf66;
+  --font: "PT Sans", sans-serif;
+  --notification-width: 15rem;
+  --gradient-bg: radial-gradient(
+      circle at top left,
+      var(--blue),
+      var(--yellow) 60%,
+      var(--red)
+    )
+    no-repeat center center/cover;
+  --icon-mail: url('data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 7.921l8.427 5.899c0.34 0.235 0.795 0.246 1.147 0l8.426-5.899v10.079c0 0.272-0.11 0.521-0.295 0.705s-0.433 0.295-0.705 0.295h-16c-0.272 0-0.521-0.11-0.705-0.295s-0.295-0.433-0.295-0.705zM1 5.983c0 0.010 0 0.020 0 0.030v11.987c0 0.828 0.34 1.579 0.88 2.12s1.292 0.88 2.12 0.88h16c0.828 0 1.579-0.34 2.12-0.88s0.88-1.292 0.88-2.12v-11.988c0-0.010 0-0.020 0-0.030-0.005-0.821-0.343-1.565-0.88-2.102-0.541-0.54-1.292-0.88-2.12-0.88h-16c-0.828 0-1.579 0.34-2.12 0.88-0.537 0.537-0.875 1.281-0.88 2.103zM20.894 5.554l-8.894 6.225-8.894-6.225c0.048-0.096 0.112-0.183 0.188-0.259 0.185-0.185 0.434-0.295 0.706-0.295h16c0.272 0 0.521 0.11 0.705 0.295 0.076 0.076 0.14 0.164 0.188 0.259z"></path></svg>');
+  --icon-close: url('data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.293 6.707l5.293 5.293-5.293 5.293c-0.391 0.391-0.391 1.024 0 1.414s1.024 0.391 1.414 0l5.293-5.293 5.293 5.293c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414l-5.293-5.293 5.293-5.293c0.391-0.391 0.391-1.024 0-1.414s-1.024-0.391-1.414 0l-5.293 5.293-5.293-5.293c-0.391-0.391-1.024-0.391-1.414 0s-0.391 1.024 0 1.414z"></path></svg>');
+}
+
+* {
+  -webkit-transition-property: var(--property, none);
+  transition-property: var(--property, none);
+  -webkit-transition-duration: var(--duration, 0s);
+          transition-duration: var(--duration, 0s);
+  -webkit-transition-delay: var(--delay, 0s);
+          transition-delay: var(--delay, 0s);
+  -webkit-transition-timing-function: var(--ease, linear);
+          transition-timing-function: var(--ease, linear);
+}
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html,
+html body {
+  height: 100%;
+}
+html body {
+  margin: 0;
+  background: var(--white);
+  color: var(--black);
+  font-family: var(--font);
+}
+html figure {
+  margin: 0;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: start;
+          align-items: flex-start;
+  flex-wrap: wrap;
+}
+html figure figcaption {
+  padding: 0.5em;
+  margin: 1em;
+  background: var(--gray);
+  border-radius: 0.5em;
+}
+html img {
+  max-width: 100%;
+}
+
+[data-state="closed"] {
+  --area: 1 / 2;
+  --border: 5px;
+}
+
+[data-state="opened"] {
+  --area: 1 / 2 / 3;
+  --shadow: -1px 0 4px var(--gray);
+}
+@media screen and (min-width: 60rem) {
+  [data-state="opened"] {
+    --area: 1 / 3 / 3;
+    --shadow: none;
+  }
+}
+
+#app {
+  min-height: 100vh;
+  background: var(--gradient-bg);
+  display: grid;
+}
+
+.app-content {
+  --bg: var(--white);
+  grid-area: 1 / 1 / 3 / 3;
+  margin: 2rem;
+  padding: 2rem;
+  position: relative;
+}
+.app-content > * {
+  z-index: 1;
+  position: relative;
+}
+.app-content .bg {
+  z-index: 0;
+  border-radius: 5px;
+  -webkit-transform: none;
+          transform: none;
+  -webkit-transform-origin: top left;
+          transform-origin: top left;
+  --property: transform;
+  --duration: 0.3s;
+}
+.app-content[data-flipping] .bg {
+  -webkit-transition: none;
+  transition: none;
+  -webkit-transform: scaleX(calc(1 / var(--dw)));
+          transform: scaleX(calc(1 / var(--dw)));
+}
+.app-content h1 {
+  margin: 0 0 0.5em;
+}
+
+.notification {
+  --bg: var(--white);
+  position: relative;
+  grid-area: var(--area);
+  border-radius: var(--border);
+  box-shadow: var(--shadow);
+  z-index: 2;
+  --property: border-radius, margin, box-shadow;
+  --duration: 0.2s, 1s, 0.5s;
+  --ease: cubic-bezier(0.55, 1, 0.68, 0.53);
+}
+.notification .bg {
+  -webkit-transform: none;
+          transform: none;
+  -webkit-transform-origin: top right;
+          transform-origin: top right;
+  border-radius: inherit;
+  --property: transform;
+  --duration: 0.3s;
+}
+.notification[data-flipping] {
+  -webkit-transition: none;
+  transition: none;
+  -webkit-transform: translate(calc(var(--dx) * -1px), calc(var(--dy) * -1px));
+          transform: translate(calc(var(--dx) * -1px), calc(var(--dy) * -1px));
+}
+.notification[data-flipping] .bg {
+  -webkit-transition: none;
+  transition: none;
+  -webkit-transform: scale(calc(1 / var(--dw)), calc(1 / var(--dh)));
+          transform: scale(calc(1 / var(--dw)), calc(1 / var(--dh)));
+}
+[data-state="closed"] .notification {
+  justify-self: end;
+  align-self: start;
+  margin: 1rem;
+  --shadow: 0px 0 3px var(--gray), 0 0 3px hsla(0, 3%, 5%, 0.6);
+}
+.notification-header {
+  --icon-size: 1.3rem;
+  margin: 0;
+  padding: 0.5em;
+  font-size: 1rem;
+  cursor: pointer;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+  background: var(--bg);
+  border-radius: var(--border);
+}
+.notification-header::before, .notification-header::after {
+  content: "";
+  width: 0;
+  height: 0;
+  padding: calc(var(--icon-size) / 2);
+  -webkit-mask: var(--icon) no-repeat center center/contain;
+          mask: var(--icon) no-repeat center center/contain;
+}
+.notification-header::before {
+  --icon: var(--icon-mail);
+  background: var(--green);
+  margin-right: 0.5em;
+}
+.notification-header::after {
+  --icon: var(--icon-close);
+  background: var(--black);
+  margin-left: 0.5em;
+}
+[data-state="closed"] .notification-header::after {
+  display: none;
+}
+.notification-content {
+  min-width: var(--notification-width);
+  opacity: 0;
+  border-top: 1px solid var(--gray);
+  -webkit-animation: 0.3s appear 0.4s ease-in forwards;
+          animation: 0.3s appear 0.4s ease-in forwards;
+}
+[data-state="closed"] .notification-content {
+  display: none;
+}
+.notification-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.notification-list li {
+  margin: 0.5em;
+  padding: 0.5rem;
+  border: 1px solid var(--gray);
+  border-radius: 5px;
+}
+
+.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  z-index: -1;
+}
+
+@-webkit-keyframes appear {
+  to {
+    -webkit-transform: none;
+            transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes appear {
+  to {
+    -webkit-transform: none;
+            transform: none;
+    opacity: 1;
+  }
+}
